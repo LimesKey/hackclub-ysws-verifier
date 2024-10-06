@@ -1,19 +1,19 @@
+use hex;
 use reqwest::{
     header::{HeaderMap, HeaderValue, CONTENT_TYPE},
     Client,
 };
 use serde::Deserialize;
 use serde_json::{json, Value};
-use std::fmt;
 use sha3::{Digest, Sha3_256};
+use std::fmt;
 use worker::*;
-use hex;
 mod utils;
 
 #[event(fetch)]
 pub async fn main(req: Request, env: Env, _ctx: worker::Context) -> Result<Response> {
     utils::set_panic_hook();
-    
+
     let client_secret = env
         .var("SLACK_CLIENT_SECRET")
         .expect("Client secret not set")
@@ -192,7 +192,11 @@ async fn exchange_code_for_token(
         }
     } else {
         console_log!("Error response: {:?}", temp_response);
-        Err(worker::Error::RustError(temp_response.error.unwrap_or_else(|| "Unknown error".to_string())))
+        Err(worker::Error::RustError(
+            temp_response
+                .error
+                .unwrap_or_else(|| "Unknown error".to_string()),
+        ))
     }
 }
 
