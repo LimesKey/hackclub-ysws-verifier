@@ -14,10 +14,10 @@ pub struct Fields {
     pub eligibility: String,
     #[serde(rename = "OTP")]
     pub otp: String,
-    #[serde(rename = "Slack ID")]
+    #[serde(rename = "Slack ID", default)]
     pub slack_id: String,
-    #[serde(rename = "SlackUsername")]
+    #[serde(rename = "SlackUsername", default)]
     pub slack_username: String,
-    #[serde(rename = "GitHub handle")]
+    #[serde(rename = "GitHub handle", default)]
     pub github_handle: String,
 }
